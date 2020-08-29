@@ -137,7 +137,7 @@ module.exports = function (RED) {
       node.send([{ _connectionId: event.id, payload: "Connected" }, null, null]);
       node.responses.forEach((response, index) => {
         // subscribe to each methodName in configured responses
-        node.connectionConfig.connection.on(response.methodName, (data) => {
+        node.connectionConfig.connection.on(response.methodName, (...data) => {
           // we're in a callback from the server
           var newMsg = {
             payload: data

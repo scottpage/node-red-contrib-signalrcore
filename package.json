@@ -16,7 +16,7 @@
     "core"
   ],
   "dependencies": {
-    "@microsoft/signalr": "3.0.0"
+    "@microsoft/signalr": "3.1.7"
   },
   "node-red": {
     "nodes": {
