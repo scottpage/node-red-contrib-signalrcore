@@ -293,8 +293,17 @@ module.exports = function (RED) {
         if (nodeDone) nodeDone();
         return;
       }
-      connectionConfig.connection.send(methodName, ...payload);
-      if (nodeDone) nodeDone();
+      var replyPromise = connectionConfig.connection.invoke(methodName, ...payload);
+	  replyPromise.then((replyData) =>
+		{
+			node.send([{ payload: replyData }]);
+			if (nodeDone) nodeDone();
+		})
+		.catch(err =>
+		{
+			if (nodeDone) nodeDone();
+		});
+      
     });
     node.on('close', function (done) {
       node.status({});
